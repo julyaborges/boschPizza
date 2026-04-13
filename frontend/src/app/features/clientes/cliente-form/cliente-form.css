@@ -1,0 +1,28 @@
+.form-card {
+  max-width: 560px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px18px rgba(0,0,0,.06);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+input[type="text"] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

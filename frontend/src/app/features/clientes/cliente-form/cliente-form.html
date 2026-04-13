@@ -1,0 +1,39 @@
+<section class="page">
+  <div class="form-card">
+    
+    <h2>{{ id ? 'Editar cliente' : 'Novo cliente' }}</h2>
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+
+      <div class="field">
+        <label>Nome</label>
+        <input 
+          type="text" 
+          formControlName="name" 
+          placeholder="Digite o nome do cliente" />
+      </div>
+
+      <div class="field">
+        <label>Endereço</label>
+        <input 
+          type="text" 
+          formControlName="address" 
+          placeholder="Digite o endereço" />
+      </div>
+
+      <div class="field">
+        <label>Telefone</label>
+        <input 
+          type="text" 
+          formControlName="phone" 
+          placeholder="Digite o telefone" />
+      </div>
+
+      <div class="actions">
+        <button type="submit">Salvar</button>
+        <button type="button" routerLink="/clientes">Cancelar</button>
+      </div>
+
+    </form>
+  </div>
+</section>

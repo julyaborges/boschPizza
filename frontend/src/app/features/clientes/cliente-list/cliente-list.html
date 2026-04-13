@@ -1,0 +1,36 @@
+<section class="page"> 
+  <div class="page-header">
+    <h2>Clientes</h2>
+    <button (click)="newCliente()">Novo cliente</button>
+  </div>
+
+  <div *ngIf="loading">Carregando...</div>
+
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Endereço</th>
+          <th>Telefone</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{ cliente.id }}</td>
+          <td>{{ cliente.name }}</td>
+          <td>{{ cliente.address }}</td>
+          <td>{{ cliente.phone }}</td>
+
+          <td class="actions">
+            <button (click)="editCliente(cliente.id!)">Editar</button>
+            <button (click)="deleteCliente(cliente.id!)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+.wrapper {
+  position: fixed;      /* ocupa a tela toda */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;  /* horizontal */
+  align-items: center;      /* vertical */
+
+  background-color: #ffffff;
+  color: #000000;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+}

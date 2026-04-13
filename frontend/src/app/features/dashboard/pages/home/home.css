@@ -1,0 +1,2 @@
+.cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+    .card { background:#fff; padding:16px; border-radius:16px; box-shadow:0 6px 18px rgba(0,0,0,.06); }
