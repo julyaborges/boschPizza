@@ -11,6 +11,7 @@
 <label>Senha</label>
 <input type="password" formControlName="password" placeholder="Digite sua senha" />
 </div>
+<a routerLink="/register">Não possui conta? Cadastre-se</a>
 <button type="submit" [disabled]="loading">
         {{ loading ? 'Entrando...' : 'Entrar' }}
 </button>

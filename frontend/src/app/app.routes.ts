@@ -8,11 +8,13 @@ import { Home } from './features/dashboard/pages/home/home';
 import { PizzaList } from './features/pizzas/pages/pizza-list/pizza-list';
 import { ClienteList } from './features/clientes/cliente-list/cliente-list';
 import { ClienteForm } from './features/clientes/cliente-form/cliente-form';
+import { Register } from './features/register/register';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // se for vazio redireciona para login
     { path: 'login', component: Login}, // 
     { path: 'acesso-negado', component: AccessDenied},
+    { path: 'register', component: Register},
     {
         path: '',
         component: MainLayout,

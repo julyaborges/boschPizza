@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Auth } from '../../../../core/services/auth';
 import { Router, RouterLink } from '@angular/router';
+import { Auth } from '../../core/services/auth';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  templateUrl: './register.html',
+  styleUrl: './register.css',
 })
-export class Login {
+export class Register {
 
   private fb = inject(FormBuilder);
   private authService = inject(Auth);
@@ -20,10 +20,11 @@ export class Login {
 
   loading = false;
   errorMessage = '';
+  successMessage = '';
 
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
-    password: ['', Validators.required]
+    password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
   submit(): void {
@@ -35,22 +36,26 @@ export class Login {
 
     this.loading = true;
     this.errorMessage = '';
+    this.successMessage = '';
 
     const { username, password } = this.form.value;
 
-    this.authService.login({ username, password }).subscribe({
+    this.authService.register({ username, password }).subscribe({
 
-      next: (response) => {
-        this.authService.saveToken(response.token);
-        this.router.navigate(['/home']);
+      next: () => {
+        this.successMessage = 'Usuário cadastrado com sucesso!';
+
+        // redireciona depois de 2 segundos
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
 
       error: (err) => {
-        // 🔥 melhora tratamento de erro
-        if (err.status === 401) {
-          this.errorMessage = 'Usuário ou senha inválidos.';
+        if (err.status === 400) {
+          this.errorMessage = err.error?.message || 'Erro ao cadastrar usuário';
         } else {
-          this.errorMessage = 'Erro ao conectar com o servidor.';
+          this.errorMessage = 'Erro ao conectar com o servidor';
         }
 
         this.loading = false;
