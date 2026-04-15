@@ -1,0 +1,23 @@
+.table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

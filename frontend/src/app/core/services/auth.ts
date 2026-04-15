@@ -20,6 +20,29 @@ export class Auth {
   register(data: LoginRequest): Observable<any>{
     return this.http.post(`${this.apiUrl}/register`, data);
   }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users`);
+  }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    return (
+      payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ||
+      payload["role"] ||
+      null
+    );
+   
+
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
+  }
  
   saveToken(token: string): void{
     localStorage.setItem('token', token);

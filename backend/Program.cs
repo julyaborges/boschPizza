@@ -126,11 +126,11 @@ if (app.Environment.IsDevelopment())
 //redireciona o HTTPS
 app.UseHttpsRedirection();
  
-// Ativa a autenticação
-app.UseAuthorization();
- 
 //ativar o cors
 app.UseCors("Frontend");
+
+// Ativa a autenticação
+app.UseAuthorization();
  
 // Mapeia os controllers
 app.MapControllers();

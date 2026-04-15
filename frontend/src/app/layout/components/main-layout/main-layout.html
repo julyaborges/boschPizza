@@ -5,7 +5,8 @@
 <nav [class.open]="menuOpen">
 <a routerLink="/home" routerLinkActive="active">Home</a>
 <a routerLink="/pizzas" routerLinkActive="active">Pizzas</a>
-<a routerLink="/clientes" routerLinkActive="active">Clientes</a> <!--ADICIONAR A ROTA CORRETA DOS CLIENTES-->
+<a routerLink="/clientes" routerLinkActive="active">Clientes</a>
+<a *ngIf="authService.getUserRole() === 'Admin'" routerLink="/user" routerLinkActive="active">Usuários</a> <!--Adicinar a rota de usuários-->
 <button type="button" (click)="logout()">Sair</button>
 </nav>
 </header>

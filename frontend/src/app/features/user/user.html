@@ -1,0 +1,27 @@
+<div class="table-wrapper">
+  <h2>Usuários cadastrados</h2>
+
+  <p *ngIf="loading">Carregando...</p>
+
+  <table *ngIf="!loading">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuário</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of user">
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>
+          <button (click)="deleteUser(user.id)">
+            Excluir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

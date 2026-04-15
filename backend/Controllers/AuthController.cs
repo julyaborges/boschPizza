@@ -4,6 +4,7 @@ using BoschPizza.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BoschPizza.Controllers;
 
@@ -54,6 +55,7 @@ public class AuthController : ControllerBase
 
         var token = _tokenService.GenerateToken(
             user.Username,
+            user.Role,
             key,
             issuer,
             audience
@@ -62,6 +64,7 @@ public class AuthController : ControllerBase
         return Ok(new { token });
     }
 
+    // Registra usuários no banco
     [HttpPost("register")]
     public async Task<IActionResult> Register(UserLogin newUser)
     {
@@ -77,11 +80,45 @@ public class AuthController : ControllerBase
 
         newUser.Password = passwordHasher.HashPassword(newUser, newUser.Password);
 
+        newUser.Role = string.IsNullOrEmpty(newUser.Role) ? "User" : newUser.Role;
+        
         _context.UserLogins.Add(newUser);
         await _context.SaveChangesAsync();
 
         return Ok(new { message = "Usuário cadastrado com sucesso" });
     }
+
+    // Listar usuários
+    [Authorize(Roles = "Admin")]
+    [HttpGet("users")]
+    [Authorize] // coisas do chatgpt
+    public async Task<ActionResult<List<UserLogin>>> GetUsers()
+    {
+        var users = await _context.UserLogins
+            .Select(u => new 
+            {
+                u.Id,
+                u.Username
+            })
+            .ToListAsync();
+
+        return Ok(users);
+    }
     
+    // Deletar usuários
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("users/{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var user = await _context.UserLogins.FindAsync(id);
+
+        if (user == null)
+            return NotFound();
+
+        _context.UserLogins.Remove(user);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }
 

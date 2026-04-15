@@ -10,7 +10,7 @@ import { Auth } from '../../../core/services/auth';
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
-  private authService = inject(Auth);
+  public authService = inject(Auth);
   menuOpen = false;
 
   toggleMenu(): void {

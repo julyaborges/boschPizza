@@ -9,6 +9,8 @@ import { PizzaList } from './features/pizzas/pages/pizza-list/pizza-list';
 import { ClienteList } from './features/clientes/cliente-list/cliente-list';
 import { ClienteForm } from './features/clientes/cliente-form/cliente-form';
 import { Register } from './features/register/register';
+import { User } from './features/user/user';
+import { adminGuard } from './core/guards/admin-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' }, // se for vazio redireciona para login
@@ -26,7 +28,8 @@ export const routes: Routes = [
             { path: 'pizzas/editar/:id', component: PizzaForm},
             { path: 'clientes', component: ClienteList},
             { path: 'clientes/novo', component: ClienteForm},
-            { path: 'clientes/editar/:id', component: ClienteForm}
+            { path: 'clientes/editar/:id', component: ClienteForm},
+            { path: 'user', component: User, canActivate: [adminGuard] }
         ]
     },
     { path: '**', redirectTo: 'acesso-negado'}

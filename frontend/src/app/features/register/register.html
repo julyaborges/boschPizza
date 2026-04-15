@@ -23,6 +23,13 @@
         />
       </div>
 
+      <div class="field">
+        <label>
+          <input type="checkbox" formControlName="isAdmin" />
+            Administrador
+        </label>
+      </div>
+
       <button type="submit" [disabled]="loading">
         {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
       </button>

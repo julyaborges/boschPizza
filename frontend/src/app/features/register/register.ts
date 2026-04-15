@@ -24,49 +24,55 @@ export class Register {
 
   form = this.fb.nonNullable.group({
     username: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    isAdmin: [false]
   });
 
   submit(): void {
 
-    if (this.form.invalid){
-      this.form.markAllAsTouched();
-      return;
-    }
+  if (this.form.invalid){
+    this.form.markAllAsTouched();
+    return;
+  }
 
-    this.loading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
+  this.loading = true;
+  this.errorMessage = '';
+  this.successMessage = '';
 
-    const { username, password } = this.form.value;
+  const { username, password, isAdmin } = this.form.value;
 
-    this.authService.register({ username, password }).subscribe({
+  const data = {
+    username,
+    password,
+    role: isAdmin ? 'Admin' : 'User'
+  };
 
-      next: () => {
-        this.successMessage = 'Usuário cadastrado com sucesso!';
+  this.authService.register(data).subscribe({
 
-        // redireciona depois de 2 segundos
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
-      },
+    next: () => {
+      this.successMessage = 'Usuário cadastrado com sucesso!';
 
-      error: (err) => {
-        if (err.status === 400) {
-          this.errorMessage = err.error?.message || 'Erro ao cadastrar usuário';
-        } else {
-          this.errorMessage = 'Erro ao conectar com o servidor';
-        }
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
+    },
 
-        this.loading = false;
-        this.cdr.markForCheck();
-      },
-
-      complete: () => {
-        this.loading = false;
-        this.cdr.markForCheck();
+    error: (err) => {
+      if (err.status === 400) {
+        this.errorMessage = err.error?.message || 'Erro ao cadastrar usuário';
+      } else {
+        this.errorMessage = 'Erro ao conectar com o servidor';
       }
 
-    });
-  }
+      this.loading = false;
+      this.cdr.markForCheck();
+    },
+
+    complete: () => {
+      this.loading = false;
+      this.cdr.markForCheck();
+    }
+
+  });
+}
 }

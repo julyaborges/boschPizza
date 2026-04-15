@@ -7,13 +7,14 @@ namespace BoschPizza.Services;
 
 public class TokenService
 {
-    public string GenerateToken(string username, string key, string issuer, string audience)
+    public string GenerateToken(string username, string role, string key, string issuer, string audience)
     {  
         //Cria as claims que serão colocados dentro do token
         var claims = new[] 
         { 
             // Armazena o nome do usuario dentro do token
-            new Claim(ClaimTypes.Name, username) 
+            new Claim(ClaimTypes.Name, username) ,
+            new Claim(ClaimTypes.Role, role) // ainda não sei o que faz
         };
 
         // Criar a chave de segurança com base no segredo configurado no servidor
